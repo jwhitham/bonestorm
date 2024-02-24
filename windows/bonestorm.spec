@@ -3,13 +3,14 @@
 block_cipher = None
 
 import os
+import sys
 
-a = Analysis(['start.py'],
+a = Analysis([os.environ["START"]],
              binaries=[],
              pathex=[os.environ["ROOT"]],
-             datas=[("../../font", "font"),
-                    ("../../variants", "variants"),
-                    ("../../img", "img")],
+             datas=[("../font", "font"),
+                    ("../variants", "variants"),
+                    ("../img", "img")],
              hiddenimports=["pygame"],
              hookspath=[],
              runtime_hooks=[],
@@ -27,11 +28,10 @@ exe = EXE(pyz,
           a.datas,
           [],
           name='bonestorm',
-          icon='../../img/bone.ico',
+          icon='../img/bone.ico',
           debug=False,
           bootloader_ignore_signals=False,
           strip=True,
-          #version="../../version.txt",
           upx=False,
           upx_exclude=[],
           runtime_tmpdir=None,

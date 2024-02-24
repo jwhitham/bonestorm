@@ -1,3 +1,3 @@
 import sys
 from src import pyinstaller_main
-sys.exit(pyinstaller_main(True))
+sys.exit(pyinstaller_main("desktop"))

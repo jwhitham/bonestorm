@@ -15,12 +15,11 @@ from .test_speedrun import test_speedrun
 from .variant import Variant
 
 
-def pyinstaller_main(internal_flag: bool) -> int:
+def pyinstaller_main(variant: str) -> int:
     root_path = Path(sys.prefix)
     return common_main(
             root_path=root_path,
-            variant_path=(root_path / "variants" / "home.json")
-                            if internal_flag else None)
+            variant_path=root_path / "variants" / (variant + ".json"))
 
 def python_main(argv: typing.List[str]) -> int:
     parser = argparse.ArgumentParser(prog='Bone Storm', description='Game')
