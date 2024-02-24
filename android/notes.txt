@@ -1,7 +1,18 @@
 Steps for testing in an emulator
 
+# Start in the root of the repository
+
+source android/android-env-setup
+cd $ANDROIDSDK
+mkdir cmdline-tools/12
+mv cmdline-tools/* cmdline-tools/12     # <-- sdkmanager doesn't work correctly without this structure
+rm tools
 tools/bin/sdkmanager --sdk_root="$ANDROIDSDK" "system-images;android-$ANDROIDAPI;google_apis;x86_64"
 tools/bin/avdmanager create avd -k "system-images;android-33;google_apis;x86_64"  -d 64 --name "tablet-10-inch"  --force
 tools/bin/sdkmanager --sdk_root=$ANDROIDSDK  --install platform-tools
-./emulator/emulator -avd tablet-10-inch -skin 1440x2560
+./emulator/emulator -avd tablet-10-inch -skin 1440x2560 &
+cd $BONESTORM/bonestorm
+# wait for emulator to start
+./android/android-install.sh 
+
 
