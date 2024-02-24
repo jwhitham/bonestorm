@@ -37,12 +37,9 @@ cd "$ANDROIDSDK"
 unzip -q $P4A_PACKAGES/commandlinetools-linux-11076708_latest.zip 
 
 # Directory structure in the zip file doesn't match what p4a expects
-#mv cmdline-tools 12.0
-#mkdir cmdline-tools
-#mv 12.0 cmdline-tools
-#ln -s cmdline-tools/12.0 tools
-#
-export PATH=$ANDROIDSDK/cmdline-tools/12.0/bin:$PATH
+ln -s cmdline-tools tools
+
+export PATH=$ANDROIDSDK/cmdline-tools/bin:$PATH
 
 # Fetch the rest of the SDK
 sdkmanager --sdk_root="$ANDROIDSDK" "platforms;android-$ANDROIDAPI"

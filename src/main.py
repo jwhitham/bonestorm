@@ -111,10 +111,24 @@ def main_loop(clock: pygame.time.Clock,
         flags = pygame.RESIZABLE
     screen_area = pygame.display.set_mode(size=size, flags=flags)
     screen_area.fill(variant.palette.WINDOW_BG)
+    run_time = 0
 
     while not state.quit_flag:
+        run_time += clock.tick(FRAME_RATE_HZ)
+
         if has_input_focus:
+            # When running, advance by at least one frame
+            run_time -= ONE_FRAME_TIME_MS
             state = state.update()
+
+            # Update by more frames if time was skipped (up to MAX_SKIP_TIME_MS)
+            run_time = min(MAX_SKIP_TIME_MS, run_time)
+            while run_time >= ONE_FRAME_TIME_MS:
+                run_time -= ONE_FRAME_TIME_MS
+                state = state.update()
+        else:
+            # When paused, don't track frame skipping
+            run_time = 0
 
         if ((screen_area.get_rect().height < 100)
         or (screen_area.get_rect().width < 100)):
@@ -122,8 +136,8 @@ def main_loop(clock: pygame.time.Clock,
             screen_area.fill(variant.palette.WINDOW_BG)
         else:
             state.draw(screen_area, mouse_pos, images, font)
+
         pygame.display.flip()
-        clock.tick(FRAME_RATE_HZ)
 
         # Process events
         if has_input_focus:
