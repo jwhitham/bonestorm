@@ -1,0 +1,12 @@
+*.pyc
+.coverage
+htmlcov/*
+tmp/*
+build/*
+dist/*
+test-env/*
+version.nsh
+version.txt
+*.aab
+*.apk
+*.apks

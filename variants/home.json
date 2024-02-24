@@ -1,0 +1,18 @@
+{
+    "palette": {
+        "WINDOW_BG": "#260018",
+        "HEADLINE_BG": "#ff0085",
+        "HEADLINE_FG": "#ff7ec1",
+        "INFO_BG": "#460025",
+        "INFO_FG": "#f6003d",
+        "BUTTON_FG": "#808000",
+        "BUTTON_ACTIVE_FG": "#f0f0a0",
+        "BUTTON_BG": "#500018",
+        "SCORE_FG": "#40a040",
+        "SCORE_TIME_OUT_FG": "#f04040"
+    },
+    "text": {
+        "GREETING": "  \u2766 Happy Valentine's Day 2024 with love from Jack! \u2766  ",
+        "TITLE": "  \u2661\u2764 Bone Storm \u2764\u2661  "
+    }
+}

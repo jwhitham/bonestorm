@@ -1,0 +1,14 @@
+{
+    "constants": {
+        "MARGIN_DIVISOR": 50,
+        "DESKTOP": false,
+        "BACK_BUTTON_HEIGHT_DIVISOR": 15,
+        "BACK_BUTTON_WIDTH_DIVISOR": 2,
+        "END_TEXT_LINES": 8,
+        "FORCE_WIDTH": 500,
+        "FORCE_HEIGHT": 1000
+    },
+    "text": {
+        "CLICK_TO_START": "TAP TO START"
+    }
+}
