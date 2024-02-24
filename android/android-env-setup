@@ -1,6 +1,6 @@
 source ../venv/bin/activate
 export BONESTORM=$PWD/..
-export BONESTORM_VERSION=0.1.5
+export BONESTORM_VERSION=0.1.6
 export P4A_STORAGE="$BONESTORM/p4a-storage"
 export P4A_PACKAGES="$P4A_STORAGE/packages"
 export ANDROIDSDK="$P4A_STORAGE/android-sdk-33"

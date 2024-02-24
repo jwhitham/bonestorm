@@ -55,8 +55,8 @@ class Font:
             size = (low_size + high_size) // 2
             try:
                 WordLocations(text=text, container_rect=text_rect,
-                              size=size, horizontal_align=horizontal_align,
-                              vertical_align=vertical_align, font=self)
+                              size=size, horizontal_align=-1,
+                              vertical_align=-1, font=self)
                 low_size = size
             except TooBigError:
                 high_size = size
@@ -146,13 +146,14 @@ class WordLocations:
 
         # Horizontal alignment is set row-by-row.
         # Move words according to alignment
-        for i in range(len(self.word_loc)):
-            (r, word) = self.word_loc[i]
-            if horizontal_align == 0:
-                r.left += (self.container_rect.width - row_width[r.top]) // 2
-            elif horizontal_align > 0:
-                r.left += (self.container_rect.width - row_width[r.top])
-            self.word_loc[i] = (r, word)
+        if horizontal_align >= 0:
+            for i in range(len(self.word_loc)):
+                (r, word) = self.word_loc[i]
+                if horizontal_align == 0:
+                    r.left += (self.container_rect.width - row_width[r.top]) // 2
+                else:
+                    r.left += (self.container_rect.width - row_width[r.top])
+                self.word_loc[i] = (r, word)
         
     def render(self, draw_area: SurfaceType, f: pygame.font.Font, colour: ColourType) -> None:
         for (r, word) in self.word_loc:

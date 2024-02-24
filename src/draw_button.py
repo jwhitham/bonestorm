@@ -1,4 +1,5 @@
 import typing
+from pygame import Rect
 
 from .game_types import *
 from .variant import Variant
@@ -9,8 +10,18 @@ from .font import Font
 def draw_button(screen_area: SurfaceType, button_outer_rect: RectType,
                 text: str, mouse_pos: ScreenXY, font: Font,
                 variant: Variant) -> None:
-    button_inner_rect = button_outer_rect.inflate(-3, -3)
-    button_text_rect = button_inner_rect.inflate(-3, -3)
+
+    # Make border
+    x = max(button_outer_rect.height // 20, 2)
+    button_inner_rect = Rect(button_outer_rect)
+    button_inner_rect.width -= x * 2
+    button_inner_rect.height -= x * 2
+    button_inner_rect.center = button_outer_rect.center
+
+    button_text_rect = Rect(button_inner_rect)
+    button_text_rect.width -= x * 2
+    button_text_rect.height -= x * 2
+    button_text_rect.center = button_inner_rect.center
 
     if button_text_rect.height < 1 or button_text_rect.width < 1:
         # Sanity check: button is too small and won't be drawn

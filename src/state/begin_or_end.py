@@ -25,8 +25,6 @@ class BeginOrEndState(IntermissionState):
             self.buttons.append((f"Go To New Level {level_id + 1}", self.play_level, level_id + 1))
         elif level_id < max_completed:
             self.buttons.append((f"Go To Next Level {level_id + 1}", self.play_level, level_id + 1))
-        else:
-            self.buttons.append(("", self.no_button, 0))
 
         if self.play_info.completed > 0:
             self.buttons.append((f"Replay Level {level_id}", self.game_start, 0))
@@ -45,7 +43,7 @@ class BeginOrEndState(IntermissionState):
         self.buttons.append(("Go to Title Screen", self.return_to_title, 0))
 
     def add_seed_button(self) -> None:
-        self.buttons.append(("", self.no_button, 0))
+        pass
 
     def cancel(self) -> BaseState:
         return self.return_to_title(0)

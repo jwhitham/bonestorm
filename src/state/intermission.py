@@ -21,6 +21,7 @@ class IntermissionState(BaseState):
         self.buttons_rects: typing.List[Rect] = []
         self.info_messages: typing.List[str] = []
         self.headline = ""
+        self.info_area_horizontal_align = 0
 
     def draw(self, screen_area: SurfaceType, mouse_pos: ScreenXY, images: Images, font: Font) -> None:
         screen_rect = screen_area.get_rect()
@@ -28,7 +29,7 @@ class IntermissionState(BaseState):
         # Determine space usage on the screen
         margin = max(1, min(screen_rect.width, screen_rect.height) // self.variant.constants.MARGIN_DIVISOR)
         headline_height = max(1, (screen_rect.height - (margin * 4)) // 5)
-        buttons_height = max(1, (screen_rect.height - (margin * 4)) // 4)
+        buttons_height = max(1, ((screen_rect.height - (margin * 4)) // 20) * len(self.buttons))
 
         # Black margins
         screen_area.fill(self.variant.palette.WINDOW_BG)
@@ -52,22 +53,20 @@ class IntermissionState(BaseState):
         info_rect = Rect(headline_rect)
         info_rect.height = screen_rect.height - buttons_rect.height - headline_rect.height - (margin * 4)
         info_rect.top = headline_rect.bottom + margin
-        info_area = screen_area.subsurface(info_rect)
-        info_area.fill(self.variant.palette.INFO_BG)
-        self.draw_info(info_area, images, font)
+        screen_area.subsurface(info_rect).fill(self.variant.palette.INFO_BG)
+        
+        # Text area is slightly smaller
+        info_rect.width -= margin
+        info_rect.centerx = headline_rect.centerx
+        self.draw_info(screen_area.subsurface(info_rect), images, font)
 
     def draw_info(self, info_area: SurfaceType, images: Images, font: Font) -> None:
         font.draw(text_area=info_area, text='\n'.join(self.info_messages),
-                  colour=Colour(*self.variant.palette.INFO_FG))
+                  colour=Colour(*self.variant.palette.INFO_FG),
+                  horizontal_align=self.info_area_horizontal_align)
 
     def draw_buttons(self, screen_area: SurfaceType, buttons_rect: Rect,
                      mouse_pos: ScreenXY, font: Font) -> None:
-
-        # Force exact number of buttons
-        while len(self.buttons) < NUM_BUTTONS:
-            self.buttons.append(("", self.no_button, 0))
-        while len(self.buttons) > NUM_BUTTONS:
-            self.buttons.pop()
 
         # Decide on positioning for buttons while drawing them
         button_outer_rect = Rect(buttons_rect)

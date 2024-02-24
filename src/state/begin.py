@@ -22,9 +22,10 @@ class BeginState(BeginOrEndState):
         BeginOrEndState.__init__(self, variant, game_database, level_id)
 
         self.headline = f"  Level {level_id}  "
+        sep = "\u00a0\u2014 "
         if self.play_info.best_counter is not None:
-            self.info_messages.append(f"Best Time {time_conv(self.play_info.best_counter)} - "
-                                      f"Score {self.play_info.last_score} - ")
+            self.info_messages.append(f"Best Time {time_conv(self.play_info.best_counter)}{sep}"
+                                      f"Score {self.play_info.last_score}{sep}")
             if self.play_info.completed > 1:
                 self.info_messages[-1] += f"Completed {self.play_info.completed} times"
             else:
@@ -40,9 +41,9 @@ class BeginState(BeginOrEndState):
 
         seed = self.game_database.get_seed_for_level(level_id)
         self.game_config = GameConfig(level_id, seed)
-        self.info_messages.append(f"{self.game_config.width} \u2715 {self.game_config.height} - ")
+        self.info_messages.append(f"{self.game_config.width} \u2715 {self.game_config.height}{sep}")
         if seed:
-            self.info_messages[-1] += f"Seed {seed:04X} - "
+            self.info_messages[-1] += f"Seed {seed:04X}{sep}"
         self.info_messages[-1] += f"Time Limit {time_conv(self.get_counter_limit())}"
         self.images_filtered = False
 

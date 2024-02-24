@@ -29,4 +29,5 @@ class HelpState(IntermissionState):
                     unlock more levels and get a higher score.
         """.replace("\n", " "))
 
+        self.info_area_horizontal_align = -1
         self.buttons.append(("Go to Title Screen", self.return_to_title, 0))
