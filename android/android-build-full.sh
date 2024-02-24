@@ -35,11 +35,18 @@ unzip -q $P4A_PACKAGES/android-ndk-r25b-linux.zip
 mkdir -p "$ANDROIDSDK"
 cd "$ANDROIDSDK"
 unzip -q $P4A_PACKAGES/commandlinetools-linux-11076708_latest.zip 
-mv cmdline-tools tools
+
+# Directory structure in the zip file doesn't match what p4a expects
+#mv cmdline-tools 12.0
+#mkdir cmdline-tools
+#mv 12.0 cmdline-tools
+#ln -s cmdline-tools/12.0 tools
+#
+export PATH=$ANDROIDSDK/cmdline-tools/12.0/bin:$PATH
 
 # Fetch the rest of the SDK
-./tools/bin/sdkmanager --sdk_root="$ANDROIDSDK" "platforms;android-$ANDROIDAPI"
-./tools/bin/sdkmanager --sdk_root="$ANDROIDSDK" "build-tools;28.0.2" 
+sdkmanager --sdk_root="$ANDROIDSDK" "platforms;android-$ANDROIDAPI"
+sdkmanager --sdk_root="$ANDROIDSDK" "build-tools;33.0.3"
 
 # Now setup the Python venv and build tools
 cd "$BONESTORM"

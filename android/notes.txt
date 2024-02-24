@@ -1,0 +1,7 @@
+Steps for testing in an emulator
+
+tools/bin/sdkmanager --sdk_root="$ANDROIDSDK" "system-images;android-$ANDROIDAPI;google_apis;x86_64"
+tools/bin/avdmanager create avd -k "system-images;android-33;google_apis;x86_64"  -d 64 --name "tablet-10-inch"  --force
+tools/bin/sdkmanager --sdk_root=$ANDROIDSDK  --install platform-tools
+./emulator/emulator -avd tablet-10-inch -skin 1440x2560
+
