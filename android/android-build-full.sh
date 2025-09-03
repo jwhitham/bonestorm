@@ -70,6 +70,10 @@ pi jinja2==3.1.3
 pi python-for-android==2024.1.21
 pi Cython==3.0.8
 
+# 16k patch
+patch $BONESTORM/venv/lib/python3.11/site-packages/pythonforandroid/archs.py < $BONESTORM/bonestorm/android/p4a-16k-patch
+
+
 # Now the build itself
 cd "$BONESTORM/bonestorm"
 git clean -dfx .
