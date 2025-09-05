@@ -23,13 +23,13 @@ mkdir -p $BONESTORM/p4a-storage/packages
 
 # Fetch Android NDK and SDK
 cd "$P4A_PACKAGES"
-wget -N https://dl.google.com/android/repository/android-ndk-r25b-linux.zip
+wget -N https://dl.google.com/android/repository/android-ndk-r28-linux.zip
 wget -N https://dl.google.com/android/repository/commandlinetools-linux-11076708_latest.zip
 wget -N https://github.com/google/bundletool/releases/download/1.15.6/bundletool-all-1.15.6.jar
 
 # Extract NDK
 cd "$P4A_STORAGE"
-unzip -q $P4A_PACKAGES/android-ndk-r25b-linux.zip  
+unzip -q $P4A_PACKAGES/android-ndk-r28-linux.zip  
 
 # Extract SDK command line tools
 mkdir -p "$ANDROIDSDK"
@@ -67,12 +67,10 @@ pi sh==1.14.3
 pi MarkupSafe==2.1.5
 pi colorama==0.3.3
 pi jinja2==3.1.3
-pi python-for-android==2024.1.21
 pi Cython==3.0.8
 
-# 16k patch
-patch $BONESTORM/venv/lib/python3.11/site-packages/pythonforandroid/archs.py < $BONESTORM/bonestorm/android/p4a-16k-patch
-
+# python-for-android (from source)
+$BONESTORM/venv/bin/python setup.py install
 
 # Now the build itself
 cd "$BONESTORM/bonestorm"
