@@ -1,0 +1,30 @@
+#!/bin/bash
+
+TARGET=/tmp/c1-$$
+if test ! -e "$1"
+then
+    echo "Usage: $0 <file.aab>"
+    exit 1
+fi
+
+cleanup()
+{
+    rm -rf "$TARGET"
+}
+trap cleanup EXIT
+
+unzip $1 -d $TARGET
+cd $TARGET/base/lib/arm64-v8a/
+for i in *.so
+do
+    objdump -p $i | grep LOAD > $i.txt
+done
+echo 'Files containing size 1k - 8k pages'
+if egrep -l '2\*\*1[0123]$'  *.txt
+then
+    echo 'Pages of size 1k - 8k detected - fail'
+    exit 1
+else
+    echo 'Pages of size 1k - 8k not detected - pass'
+    exit 0
+fi
