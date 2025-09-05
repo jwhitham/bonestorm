@@ -70,6 +70,7 @@ pi jinja2==3.1.3
 pi Cython==3.0.8
 
 # python-for-android (from source)
+cd "$BONESTORM/python-for-android"
 $BONESTORM/venv/bin/python setup.py install
 
 # Now the build itself
