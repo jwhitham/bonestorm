@@ -3,11 +3,10 @@ set -e
 
 echo "Run this from the root of the repo"
 test -f android/android-env-setup
-test -f ../venv/bin/activate
+test -f venv/bin/activate
 source android/android-env-setup
-git clean -dfx .
 cd $BONESTORM
-PRIVATE=$BONESTORM/bonestorm
+git clean -dfx "$PRIVATE"
 
 p4a aab --private=$PRIVATE \
     --package=com.jwhitham.bonestorm \

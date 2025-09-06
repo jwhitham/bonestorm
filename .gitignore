@@ -1,10 +1,12 @@
 *.pyc
 .coverage
-htmlcov/*
-tmp/*
-build/*
-dist/*
-test-env/*
+/bonestorm/htmlcov/*
+/bonestorm/tmp/*
+/bonestorm/build/*
+/venv
+/p4a-storage
+/bonestorm/dist/*
+/bonestorm/test-env/*
 version.nsh
 version.txt
 *.aab

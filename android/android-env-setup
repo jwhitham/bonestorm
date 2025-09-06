@@ -1,5 +1,6 @@
-source ../venv/bin/activate
-export BONESTORM=$PWD/..
+export BONESTORM=$PWD
+export PRIVATE=$PWD/bonestorm
+source $BONESTORM/venv/bin/activate
 export BONESTORM_VERSION=0.1.13
 export P4A_STORAGE="$BONESTORM/p4a-storage"
 export P4A_PACKAGES="$P4A_STORAGE/packages"

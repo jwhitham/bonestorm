@@ -4,12 +4,17 @@ set -e
 echo "Run this from the root of the repo"
 test -f android/android-env-setup
 
+
 # In case venv does not exist
-mkdir -p ../venv/bin
-touch ../venv/bin/activate
+mkdir -p venv/bin
+touch venv/bin/activate
 
 # Environment vars
 source android/android-env-setup
+
+# Consistency check
+# ($BONESTORM is the root of the repo)
+test -f $BONESTORM/android/android-env-setup
 
 # Cleanup working directories
 rm -rf \
@@ -45,6 +50,10 @@ export PATH=$ANDROIDSDK/cmdline-tools/bin:$PATH
 sdkmanager --sdk_root="$ANDROIDSDK" "platforms;android-$ANDROIDAPI"
 sdkmanager --sdk_root="$ANDROIDSDK" "build-tools;33.0.3"
 
+# Consistency check (installation ok)
+test -d $ANDROIDSDK/platforms
+test -d $ANDROIDSDK/build-tools
+
 # Now setup the Python venv and build tools
 cd "$BONESTORM"
 
@@ -70,11 +79,10 @@ pi jinja2==3.1.3
 pi Cython==3.0.8
 
 # python-for-android (from source, in a submodule - own fork)
-cd "$BONESTORM/bonestorm/python-for-android"
+cd "$BONESTORM/python-for-android"
 $BONESTORM/venv/bin/python setup.py install
 
 # Now the build itself
-cd "$BONESTORM/bonestorm"
-git clean -dfx .
-android/android-build.sh
+cd "$BONESTORM"
+$BONESTORM/android/android-build.sh
 
